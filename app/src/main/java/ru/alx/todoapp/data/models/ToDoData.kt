@@ -10,5 +10,5 @@ data class ToDoData(
     var id: Int,
         var title: String,
         var priority: Priority,
-        var descriotion: String
+        var description: String
 )
