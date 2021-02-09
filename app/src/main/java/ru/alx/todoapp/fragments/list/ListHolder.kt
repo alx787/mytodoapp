@@ -25,7 +25,9 @@ class ListHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClic
     }
 
     override fun onClick(v: View) {
-        v.findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+        val action = ListFragmentDirections.actionListFragmentToUpdateFragment(toDoData)
+        v.findNavController().navigate(action)
+//        v.findNavController().navigate(R.id.action_listFragment_to_updateFragment)
 //         Toast.makeText(v.context, " clicked!", Toast.LENGTH_SHORT).show()
     }
 

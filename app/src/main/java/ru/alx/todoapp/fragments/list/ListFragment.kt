@@ -42,7 +42,7 @@ class ListFragment : Fragment() {
         }
 
 //        listLayout.setOnClickListener {
-//            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+//            findNavController().navigate(                                 R.id.action_listFragment_to_updateFragment)
 //        }
 
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
