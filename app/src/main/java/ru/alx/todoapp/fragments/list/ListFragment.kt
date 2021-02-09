@@ -20,36 +20,37 @@ class ListFragment : Fragment() {
     private lateinit var listLayout: ConstraintLayout
     private lateinit var recyclerView: RecyclerView
 
-//    private val adapter: ListAdapter by lazy { ListAdapter() }
-    private var adapter: ListAdapter? = null
+    private val adapter: ListAdapter by lazy { ListAdapter() }
+//    private var adapter: ListAdapter? = null
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        floatingActionButton = view.findViewById(R.id.floatingActionButton)
-        listLayout = view.findViewById(R.id.listLayout)
-        recyclerView = view.findViewById(R.id.recyclerView)
+        floatingActionButton = view.findViewById(R.id.floatingActionButton) as FloatingActionButton
+        listLayout = view.findViewById(R.id.listLayout) as ConstraintLayout
+        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
 
 
         floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
-        listLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
-        }
+//        listLayout.setOnClickListener {
+//            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+//        }
 
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = adapter
 
-//        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
-//            adapter.setData(data)
-//        })
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+            adapter.setData(data)
+        })
 
         // set menu
         setHasOptionsMenu(true)
