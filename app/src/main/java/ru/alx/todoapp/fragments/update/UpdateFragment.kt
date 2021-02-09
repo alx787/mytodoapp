@@ -1,5 +1,6 @@
 package ru.alx.todoapp.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -60,11 +61,14 @@ class UpdateFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_save) {
-            updateItem()
+        when (item.itemId){
+            R.id.menu_save -> updateItem()
+            R.id.menu_delete -> confirmItemRemoval()
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
     private fun updateItem() {
         val title = current_title_et.editableText.toString()
@@ -81,5 +85,19 @@ class UpdateFragment : Fragment() {
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+
+    private fun confirmItemRemoval() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") {_,_ ->
+            mToDoViewModel.deleteData(args.currentitem)
+            Toast.makeText(requireContext(), "Successfully Removed ${args.currentitem.title}", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No") {_,_ ->}
+        builder.setTitle("Delete '${args.currentitem.title}' ?")
+        builder.setMessage("Уверены что хотите удалить '${args.currentitem.title}' ?")
+        builder.create().show()
     }
 }
